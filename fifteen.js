@@ -14,40 +14,47 @@ function addPuzzlePiecesStyles() {
         puzzlepieces[i].style.position = "relative";
         puzzlepieces[i].style.float = "left";
     } 
-  //tileBackground();   
-  additionalFeature();                                                                                                                                
+  tileBackground();   
+  additionalFeature();  
+  //displayBackground();                                                                                                                      
 }
 
-/*function tileBackground()
-{
-    var puzzlepieces, bgWidth, bgHeight;
-    puzzlepieces = document.getElementById('puzzlearea').getElementsByTagName('div'); 
-    bgWidth = 400;
-    bgHeight = 400;
-    //puzzlepieces[0].style.backgroundPosition = 0 + 'px' + ' ' + 0 + 'px';
-    //puzzlepieces[1].style.backgroundPosition = 100;
-    for (var i = 0; i < puzzlepieces.length; i++) 
+    function tileBackground() 
     {
-        puzzlepieces[i].style.backgroundPosition =  '-' + 300 + 'px' + ' ' + 0 + 'px';
-        //puzzlepieces[i].style.top = (parseInt(i / 4) * 100) + 'px';
-        //puzzlepieces[i].style.left = (i % 4 * 100) + 'px';
-        //puzzlepieces[i].style.backgroundPosition = '-' + puzzlepieces[i].style.left + ' ' + '-' + puzzlepieces[i].style.top;
+        var puzzlepieces, y1, y2, y3, y4;
+        y1 = 0;
+        y2 =0;
+        y3 =0;
+        y4 = 0;
+        puzzlepieces = document.getElementById('puzzlearea').getElementsByTagName('div'); 
+        for(var i = 0; i < puzzlepieces.length; i+=4)
+        {
+            puzzlepieces[i].style.backgroundPosition = "0px" + " " + y1 + "px";
+            y1 = y1 - 100;
+        }
+
+        for (var i = 1; i < puzzlepieces.length; i += 4) {
+
+            puzzlepieces[i].style.backgroundPosition = "-100px" + " " + y2 + "px";
+            console.log(y1);
+            y2 = y2 - 100;
+        }
+
+        for (var i = 2; i < puzzlepieces.length; i += 4) {
+
+            puzzlepieces[i].style.backgroundPosition = "-200px" + " " + y3 + "px";
+            y3 = y3 - 100;
+        }
+
+        for (var i = 3; i < puzzlepieces.length; i += 4) {
+
+            puzzlepieces[i].style.backgroundPosition = "-300px" + " " + y4 + "px";
+            y4 = y4 - 100;
+        }
     }
-   }*/
 
-    /*function tileBackground() 
-    {
-        var puzzlepieces, x;
+//Behaviour Details
 
-        setInterval(function() {
-            for (var i = 0; i < puzzlepieces.length; i++) {
-                puzzlepieces[i].style.backgroundPosition = 
-            }
-
-        }, 500);
-   
-
-    }*/
 /*Extra Features*/
 
 //Multiple Background
@@ -65,6 +72,36 @@ function addPuzzlePiecesStyles() {
          option.value = array[i];
          option.text = array[i];
          selectList.appendChild(option);
+     }
+     //displayBackground(selectList);
+ }
+
+ function displayBackground() 
+ {
+     var selectedOption = document.getElementById('picChoice').selectedValue;
+     console.log(selectedOption);
+     //alert(selectedOption);
+     var puzzle = document.getElementsByClassName('puzzlepiece');
+     //alert(puzzle);
+     if (selectedOption == "Smoking Joker")
+     {
+         puzzle.src = selectList.options[selectList.selectedIndex].value;
+     }
+     else if (selectedOption == "Justice League")
+     {
+         puzzle.src = url("justiceLeague.jpg");
+     }
+     else if (selectedOption == "Painted Joker")
+     {
+         puzzle.src = url("background.jpg");
+     }
+     else if (selectedOption == "Joker with Umbrella")
+     {
+         puzzle.src = url("umbrellaJoker.jpg");
+     }
+     else 
+     {
+         puzzle.src = url("butterfly.jpg");
      }
  }
 
