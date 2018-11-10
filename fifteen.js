@@ -3,29 +3,28 @@
 //var self = this;
 //var countMove = 0;
 
-window.onload = setPuzzleGrid;
-
-function setPuzzleGrid() {
-    var shuffleButton; //,puzzle, puzzlepieces;
+window.onload = function()
+{
+    var shuffleButton = document.getElementById('shufflebutton'); 
     var puzzle = document.getElementById('puzzlearea');
     var puzzlepieces = puzzle.getElementsByTagName('div');
-        //puzzle = document.getElementById('puzzlearea');
-    //puzzlepieces = puzzle.getElementsByTagName('div');
-    shuffleButton = document.getElementById('shufflebutton'); 
-
-    for (var i = 0; i < puzzlepieces.length; i++)
-    {
-        puzzlepieces[i].classList.add('puzzlepiece');
-        puzzlepieces[i].style.left = (i % 4 * 100) + 'px';
-        puzzlepieces[i].style.top = (parseInt(i / 4) * 100) + 'px';
-        puzzlepieces[i].style.backgroundPosition = '-' + puzzlepieces[i].style.left + ' ' + '-' + puzzlepieces[i].style.top; 
-    } 
-    puzzlepieces[11].classList.add("movablepiece");
-    puzzlepieces[14].classList.add("movablepiece");
-   // isClicked();  
-  additionalFeature();  
-  //displayBackground();                                                                                                                      
-}
+    var emptySpaceXCoord = "300px";
+    var emptySpaceYCoord = "300px";
+    setPuzzleGrid();
+    isClicked();
+    createSelectBackground();
+    function setPuzzleGrid() {
+        for (var i = 0; i < puzzlepieces.length; i++)
+        {
+            puzzlepieces[i].classList.add('puzzlepiece');
+            puzzlepieces[i].style.left = (i % 4 * 100) + 'px';
+            puzzlepieces[i].style.top = (parseInt(i / 4) * 100) + 'px';
+            puzzlepieces[i].style.backgroundPosition = '-' + puzzlepieces[i].style.left + ' ' + '-' + puzzlepieces[i].style.top; 
+        } 
+        puzzlepieces[11].classList.add("movablepiece");
+        puzzlepieces[14].classList.add("movablepiece");
+        //displayBackground();                                                                                                                      
+    }
 
     /*function tileBackground() //Inefficient - But produce the same result
     {
@@ -63,18 +62,34 @@ function setPuzzleGrid() {
 
 //Behaviour Details
 
-/*function isClicked() {
-    var puzzlepieces;
-    //var emptySpaceXCoord = "300px";
-    //var emptySpaceYCoord = "300px";
-    puzzlepieces = document.getElementById('puzzlearea').getElementsByTagName('div');
+ function isClicked() {
+     //var puzzlepieces;
+    var targetElement;
+    
+    //puzzlepieces = document.getElementById('puzzlearea').getElementsByTagName('div');
     for (var i = 0; i < puzzlepieces.length; i++) {
 
-        puzzlepieces[i].onclick =  canMove(self); 
-    }   
+        puzzlepieces[i].addEventListener('click', function (e){
+            e = e || window.event;
+            targetElement = e.target || e.srcElement;
+            textTile = targetElement.textContent || targetElement.innerText;
+            console.log(targetElement);
+            console.log(textTile);
+            swapTile(textTile);            
+        }, false);
+    }    
 }
 
-function canMove(element)
+function swapTile(tilePosition)
+{
+    var temp = puzzlepieces[tilePosition-1].style.top;
+    puzzlepieces[tilePosition-1].style.top = emptySpaceYCoord;
+    emptySpaceYCoord = temp;
+    temp = puzzlepieces[tilePosition-1].style.left;
+    puzzlepieces[tilePosition-1].style.left = emptySpaceXCoord;
+    emptySpaceXCoord = temp;
+}
+/*function canMove(element)
 {
     if(element.target.className == "movablepiece puzzlepiece")
     {
@@ -141,10 +156,17 @@ function blankSpace (blankTile)
 /*Extra Features*/
 
 //Multiple Background
- function additionalFeature () 
+function createSelectBackground() 
  {
-     var div = document.getElementById("picChoice");
-     var array = ["Smoking Joker", "Justice League", "Painted Joker", "Joker with Umbrella", "Butterfly"];
+     var div = document.createElement("div");
+     var newline = document.createElement("br");
+     var linebreak = document.createElement("br")
+     var text = document.createTextNode("Select Your Choice of Background For Puzzle:");
+     div.appendChild(text);
+     div.appendChild(newline);
+     div.appendChild(linebreak);
+     document.body.appendChild(div);
+     var array = ["Smoking Joker", "Justice League", "Batman Signal ", "Gotham Villains", "Teen Titans"];
      var selectList = document.createElement("select");
      selectList.id = "picSelect";
      div.appendChild(selectList);
@@ -156,15 +178,16 @@ function blankSpace (blankTile)
          option.text = array[i];
          selectList.appendChild(option);
      }
-     //displayBackground(selectList);
+     displayBackground();
  }
 
  function displayBackground() 
  {
-     var selectedOption = document.getElementById('picChoice').selectedValue;
-     console.log(selectedOption);
+     var selection = document.getElementById('picSelect');
+     var selectedPic = selection.options[selection.selectedIndex].value;
+     console.log(selectedPic);
      //alert(selectedOption);
-     var puzzle = document.getElementsByClassName('puzzlepiece');
+     /*var puzzle = document.getElementsByClassName('puzzlepiece');
      //alert(puzzle);
      if (selectedOption == "Smoking Joker")
      {
@@ -185,6 +208,7 @@ function blankSpace (blankTile)
      else 
      {
          puzzle.src = url("butterfly.jpg");
-     }
+     }*/
  }
 
+};
