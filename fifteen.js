@@ -13,6 +13,7 @@ window.onload = function()
     setPuzzleGrid();
     isClicked();
     createSelectBackground();
+
     function setPuzzleGrid() {
         for (var i = 0; i < puzzlepieces.length; i++)
         {
@@ -63,10 +64,8 @@ window.onload = function()
 //Behaviour Details
 
  function isClicked() {
-     //var puzzlepieces;
     var targetElement;
     
-    //puzzlepieces = document.getElementById('puzzlearea').getElementsByTagName('div');
     for (var i = 0; i < puzzlepieces.length; i++) {
 
         puzzlepieces[i].addEventListener('click', function (e){
@@ -83,13 +82,18 @@ window.onload = function()
 function swapTile(tilePosition)
 {
     var temp = puzzlepieces[tilePosition-1].style.top;
+    console.log(emptySpaceYCoord);
     puzzlepieces[tilePosition-1].style.top = emptySpaceYCoord;
     emptySpaceYCoord = temp;
+    console.log(emptySpaceYCoord);
     temp = puzzlepieces[tilePosition-1].style.left;
+    console.log(emptySpaceXCoord);
     puzzlepieces[tilePosition-1].style.left = emptySpaceXCoord;
     emptySpaceXCoord = temp;
+    console.log(emptySpaceXCoord);
 }
-/*function canMove(element)
+
+function canMove(element)
 {
     if(element.target.className == "movablepiece puzzlepiece")
     {
@@ -98,7 +102,8 @@ function swapTile(tilePosition)
 
     }
 }
-function isShuffle ()
+
+/*function isShuffle ()
 {
     puzzle = shufflePuzzle(puzzle);
 }
