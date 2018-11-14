@@ -11,6 +11,7 @@ window.onload = function()
     var emptySpaceXCoord = "300px";
     var emptySpaceYCoord = "300px";
     setPuzzleGrid();
+    //canMove();
     isClicked();
     createSelectBackground();
 
@@ -22,8 +23,8 @@ window.onload = function()
             puzzlepieces[i].style.top = (parseInt(i / 4) * 100) + 'px';
             puzzlepieces[i].style.backgroundPosition = '-' + puzzlepieces[i].style.left + ' ' + '-' + puzzlepieces[i].style.top; 
         } 
-        puzzlepieces[11].classList.add("movablepiece");
-        puzzlepieces[14].classList.add("movablepiece");
+        //puzzlepieces[11].classList.add("movablepiece");
+        //puzzlepieces[14].classList.add("movablepiece");
         //displayBackground();                                                                                                                      
     }
 
@@ -72,8 +73,9 @@ window.onload = function()
             e = e || window.event;
             targetElement = e.target || e.srcElement;
             textTile = targetElement.textContent || targetElement.innerText;
-            console.log(targetElement);
-            console.log(textTile);
+            console.log("Clicked element: " + targetElement);
+            console.log("Clicked element: " + textTile);
+            canMove();
             swapTile(textTile);            
         }, false);
     }    
@@ -82,25 +84,63 @@ window.onload = function()
 function swapTile(tilePosition)
 {
     var temp = puzzlepieces[tilePosition-1].style.top;
-    console.log(emptySpaceYCoord);
+    console.log("Empty tile Y Coord (Before): " + emptySpaceYCoord);
     puzzlepieces[tilePosition-1].style.top = emptySpaceYCoord;
     emptySpaceYCoord = temp;
-    console.log(emptySpaceYCoord);
+    console.log("Empty tile Y Coord (After): " + emptySpaceYCoord);
     temp = puzzlepieces[tilePosition-1].style.left;
-    console.log(emptySpaceXCoord);
+    console.log("Empty tile X Coord (Before): " + emptySpaceXCoord);
     puzzlepieces[tilePosition-1].style.left = emptySpaceXCoord;
     emptySpaceXCoord = temp;
-    console.log(emptySpaceXCoord);
+    console.log("Empty tile X Coord (After): " + emptySpaceXCoord);
+  canMove();
 }
 
-function canMove(element)
+function canMove()
 {
-    if(element.target.className == "movablepiece puzzlepiece")
+    var leftTileXCoord = parseInt(emptySpaceXCoord) + parseInt('100') + 'px';
+    //console.log(parseInt(emptySpaceXCoord));
+    console.log("Left tile Y Coord: " + leftTileXCoord);
+    console.log("Left tile X Coord: " + emptySpaceXCoord);
+    //var leftTileYCoord = emptySpaceYCoord;
+    var rightTileXCoord = emptySpaceXCoord + '-100px';
+    console.log("Right tile X Coord: " + rightTileXCoord);
+    console.log("Right tile Y Coord: " + emptySpaceXCoord);
+    //var  rightTileYCoord = emptySpaceYCoord;
+    var topTileYCoord = emptySpaceYCoord + '100px';
+    console.log("Top tile Y Coord: " + topTileYCoord);
+    console.log("Top tile X Coord: " + emptySpaceYCoord);
+    //var topTileXCoord = emptySpaceXCoord;
+    var bottomTileYCoord = emptySpaceYCoord + '-100px';
+    console.log("Bottom tile Y Coord: " + bottomTileYCoord);
+    console.log("Bottom tile X Coord: " + emptySpaceYCoord);
+    //var bottomTileXCoord = emptySpaceXCoord;
+
+    /*for(var i = 0; i < puzzlepieces.length; i++)
+    {
+        if ((puzzlepieces[i].style.left == leftTileXCoord) && (puzzlepieces[i].style.top == emptySpaceYCoord))
+        {
+            puzzlepieces[i].classList.add("movablepiece");
+        }
+        if (puzzlepieces[i].style.left == rightTileXCoord && puzzlepieces[i].style.top == emptySpaceYCoord)
+        {
+            puzzlepieces[i].classList.add("movablepiece");
+        }
+        if (puzzlepieces[i].style.left == emptySpaceXCoord && puzzlepieces[i].style.top == topTileYCoord)
+        {
+            puzzlepieces[i].classList.add("movablepiece");
+        }
+        if (puzzlepieces[i].style.left == emptySpaceXCoord && puzzlepieces[i].style.top == bottomTileYCoord)
+        {
+            puzzlepieces[i].classList.add("movablepiece");
+        }
+    }*/
+    /*if(element.target.className == "movablepiece puzzlepiece")
     {
         countMove++;
         puzzle = self.moveTile(puzzle, element.target.innerHTML);
 
-    }
+    }*/
 }
 
 /*function isShuffle ()
